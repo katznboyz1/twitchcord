@@ -30,9 +30,12 @@ class TwitchCord {
         // make a copy of the friends button (the second element in this div) and change the text and function to be a button that opens the twitch page
         // by using a copy of the friends button it inherits all of the styling and the chances of this working for longer are higher
         let twitchButton = this.PARENT_TWITCH_BUTTON_CLASS.children[1].cloneNode(true); 
+
         twitchButton.href = 'https://www.google.com'; // tmp redirect just to make sure that this works
         twitchButton.getElementsByClassName('name-uJV0GL')[0].innerHTML = 'Twitch'; // edit the text of the button
         twitchButton.getElementsByClassName('linkButtonIcon-Mlm5d6')[0]; // the svg on the button
+        twitchButton.classList.remove('selected-aXhQR6'); // the highlight for the button for when the button is focused
+
         this.PARENT_TWITCH_BUTTON_CLASS.insertBefore(twitchButton, this.PARENT_TWITCH_BUTTON_CLASS.children[3]);
     }
 
