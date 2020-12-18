@@ -45,10 +45,15 @@ class TwitchCord {
 
         twitchButton.href = 'https://www.google.com'; // tmp redirect just to make sure that this works
         twitchButton.getElementsByClassName('name-uJV0GL')[0].innerHTML = 'Twitch'; // edit the text of the button
-        twitchButton.getElementsByClassName('linkButtonIcon-Mlm5d6')[0]; // the svg on the button
         twitchButton.classList.remove('selected-aXhQR6'); // the highlight for the button for when the button is focused
 
         twitchButton.id = 'twitchCordButton';
+
+        let twitchButtonNewIcon = document.createElement('img');
+        twitchButtonNewIcon.classList.add('linkButtonIcon-Mlm5d6');
+        twitchButtonNewIcon.src = 'https://github.com/katznboyz1/twitchcord/raw/master/twitchlogo.png';
+        twitchButton.getElementsByClassName('linkButtonIcon-Mlm5d6')[0].remove();
+        twitchButton.getElementsByClassName('avatar-3uk_u9')[0].appendChild(twitchButtonNewIcon);
 
         this.PARENT_TWITCH_BUTTON_CLASS.insertBefore(twitchButton, this.PARENT_TWITCH_BUTTON_CLASS.children[3]);
     }
