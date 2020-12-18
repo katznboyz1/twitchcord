@@ -20,19 +20,23 @@ class TwitchCord {
         PluginUtilities.showToast(getName() + " v" + this.getVersion() + " started.");
     }
 
-    load() {
-        PARENT_TWITCH_BUTTON_CLASS = document.getElementsByClassName('content-3YMskv')[0]; // the div that has the friends and nitro and direct message buttons
+    onSwitch() {
+        console.log('TWITCHCORD DEBUG: switched');
+    }
+
+    start() {
+        this.PARENT_TWITCH_BUTTON_CLASS = document.getElementsByClassName('content-3YMskv')[0]; // the div that has the friends and nitro and direct message buttons
 
         // make a copy of the friends button (the second element in this div) and change the text and function to be a button that opens the twitch page
         // by using a copy of the friends button it inherits all of the styling and the chances of this working for longer are higher
-        twitchButton = this.PARENT_TWITCH_BUTTON_CLASS.children[1]; 
+        let twitchButton = this.PARENT_TWITCH_BUTTON_CLASS.children[1].cloneNode(true); 
         twitchButton.href = 'https://www.google.com'; // tmp redirect just to make sure that this works
         twitchButton.getElementsByClassName('name-uJV0GL')[0].innerHTML = 'Twitch'; // edit the text of the button
         twitchButton.getElementsByClassName('linkButtonIcon-Mlm5d6')[0]; // the svg on the button
-        PARENT_TWITCH_BUTTON_CLASS.appendChild(twitchButton);
+        this.PARENT_TWITCH_BUTTON_CLASS.insertBefore(twitchButton, this.PARENT_TWITCH_BUTTON_CLASS.children[3]);
     }
 
-    unload() {
+    stop() {
         // TODO
     }
 }
