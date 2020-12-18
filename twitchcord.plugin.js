@@ -17,15 +17,27 @@ class TwitchCord {
 
     initialize() {
         this.initialized = true;
-        PluginUtilities.showToast(getName() + " v" + this.getVersion() + " started.");
+        PluginUtilities.showToast(this.getName() + " v" + this.getVersion() + " started.");
+    }
+
+    twitchButtonExists() {
+        let exists = false;
+        for (let i = 0; i < this.PARENT_TWITCH_BUTTON_CLASS.children.length; i++) {
+            if (this.PARENT_TWITCH_BUTTON_CLASS.children[i].id == 'twitchCordButton') {
+                exists = true;
+            }
+        }
+        return exists;
     }
 
     onSwitch() {
-        console.log('TWITCHCORD DEBUG: switched');
-    }
-
-    start() {
         this.PARENT_TWITCH_BUTTON_CLASS = document.getElementsByClassName('content-3YMskv')[0]; // the div that has the friends and nitro and direct message buttons
+        if (location.href == 'https://discord.com/channels/@me' && !this.twitchButtonExists()) { // check if the page is the home page
+            this.addTwitchButton();
+        }
+    }
+    
+    addTwitchButton() {
 
         // make a copy of the friends button (the second element in this div) and change the text and function to be a button that opens the twitch page
         // by using a copy of the friends button it inherits all of the styling and the chances of this working for longer are higher
@@ -36,7 +48,13 @@ class TwitchCord {
         twitchButton.getElementsByClassName('linkButtonIcon-Mlm5d6')[0]; // the svg on the button
         twitchButton.classList.remove('selected-aXhQR6'); // the highlight for the button for when the button is focused
 
+        twitchButton.id = 'twitchCordButton';
+
         this.PARENT_TWITCH_BUTTON_CLASS.insertBefore(twitchButton, this.PARENT_TWITCH_BUTTON_CLASS.children[3]);
+    }
+
+    start() {
+        this.onSwitch();
     }
 
     stop() {
