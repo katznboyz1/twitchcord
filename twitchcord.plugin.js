@@ -1,9 +1,12 @@
 //META{"name":"TwitchCord"}*//
 
+// use the nitro page as the twitch viewing page since it has lots of free space
+
 class TwitchCord {
     
     // constants which will be defined at load
     PARENT_TWITCH_BUTTON_CLASS;
+    wantsToLoadTwitchPage = false;
 
     getName() {return "TwitchCord";}
     getShortName() {return "TwitchCord";}
@@ -31,10 +34,14 @@ class TwitchCord {
     }
 
     onSwitch() {
-        this.PARENT_TWITCH_BUTTON_CLASS = document.getElementsByClassName('content-3YMskv')[0]; // the div that has the friends and nitro and direct message buttons
+        this.PARENT_TWITCH_BUTTON_CLASS = document.getElementsByClassName('content-3YMskv')[0]; // the div that has the friends and nitro and direct message buttons (reassign it since the page has been refreshed)
         if (location.href == 'https://discord.com/channels/@me' && !this.twitchButtonExists()) { // check if the page is the home page
             this.addTwitchButton();
         }
+    }
+
+    redirectToStorePageForTwitch() {
+        document.getElementsByClassName('content-3YMskv')[0].children[2].click(); // click the nitro button to load the nitro page
     }
     
     addTwitchButton() {
@@ -43,7 +50,7 @@ class TwitchCord {
         // by using a copy of the friends button it inherits all of the styling and the chances of this working for longer are higher
         let twitchButton = this.PARENT_TWITCH_BUTTON_CLASS.children[1].cloneNode(true); 
 
-        twitchButton.href = 'https://www.google.com'; // tmp redirect just to make sure that this works
+        twitchButton.removeAttribute('href'); // remove the href attribute since we are doing our own workarond to get this working
         twitchButton.getElementsByClassName('name-uJV0GL')[0].innerHTML = 'Twitch'; // edit the text of the button
         twitchButton.classList.remove('selected-aXhQR6'); // the highlight for the button for when the button is focused
 
@@ -54,6 +61,7 @@ class TwitchCord {
         twitchButtonNewIcon.src = 'https://github.com/katznboyz1/twitchcord/raw/master/twitchlogo.png';
         twitchButton.getElementsByClassName('linkButtonIcon-Mlm5d6')[0].remove();
         twitchButton.getElementsByClassName('avatar-3uk_u9')[0].appendChild(twitchButtonNewIcon);
+        twitchButton.onclick = this.redirectToStorePageForTwitch;
 
         this.PARENT_TWITCH_BUTTON_CLASS.insertBefore(twitchButton, this.PARENT_TWITCH_BUTTON_CLASS.children[3]);
     }
