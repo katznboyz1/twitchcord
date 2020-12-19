@@ -1,2 +1,3 @@
 //META{"name":"TwitchCord","description":"The themes for the TwitchCord plugin (the plugin will not work without this!)","author":"katznboyz","version":"0.0.1"}*//
 #twitchCordButton:hover{color:var(--interactive-hover);background-color:var(--background-modifier-hover);}
+#twitchCordButton:active{color:var(--interactive-active);background-color:var(--background-modifier-active);}

@@ -6,7 +6,6 @@ class TwitchCord {
     
     // constants which will be defined at load
     PARENT_TWITCH_BUTTON_CLASS;
-    wantsToLoadTwitchPage = false;
 
     getName() {return "TwitchCord";}
     getShortName() {return "TwitchCord";}
